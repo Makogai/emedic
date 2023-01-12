@@ -21,6 +21,10 @@ class Medication extends Model implements HasMedia
 
     public $table = 'medications';
 
+    protected $appends = [
+        'image',
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -53,6 +57,18 @@ class Medication extends Model implements HasMedia
     public function patient()
     {
         return $this->belongsTo(User::class, 'patient_id');
+    }
+
+    public function getImageAttribute()
+    {
+        $file = $this->getMedia('image')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
     }
 
     protected function serializeDate(DateTimeInterface $date)

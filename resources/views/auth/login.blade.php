@@ -5,7 +5,7 @@
         border:0;
         border-bottom: 1px solid gray;
         border-radius: 0;
-        
+
     }
     .butt-bg{
         background-color: #4F9D92 !important;
@@ -21,13 +21,13 @@
 </style>
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card mx-4">
+        <div class="card ">
             <div class="card-body p-4">
             <img src="/images/logo.png" alt="" class="mx-auto d-block w-50">
             <h1 class="font-bold text-center text-3xl">PRIJAVA</h1>
             <h3 class="text-center mb-8">KORISNIKA</h3>
 
-                
+
 
                 @if(session('message'))
                     <div class="alert alert-info" role="alert">

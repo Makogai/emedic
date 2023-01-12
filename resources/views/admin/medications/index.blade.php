@@ -38,6 +38,9 @@
                             {{ trans('cruds.medication.fields.isread') }}
                         </th>
                         <th>
+                            {{ trans('cruds.medication.fields.image') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -62,6 +65,13 @@
                             </td>
                             <td>
                                 {{ App\Models\Medication::ISREAD_RADIO[$medication->isread] ?? '' }}
+                            </td>
+                            <td>
+                                @if($medication->image)
+                                    <a href="{{ $medication->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $medication->image->getUrl('thumb') }}">
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 @can('medication_show')
