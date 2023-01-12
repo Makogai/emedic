@@ -67,6 +67,7 @@
             padding: 0 !important;
         }
     </style>
+    @laravelPWA
 </head>
 
 <body>
