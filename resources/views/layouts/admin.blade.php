@@ -55,6 +55,7 @@
         });
     </script>
     @yield('styles')
+    @laravelPWA
 </head>
 <div id="loading">
     <div class="d-flex flex-column">

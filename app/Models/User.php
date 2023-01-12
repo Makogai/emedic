@@ -84,6 +84,11 @@ class User extends Authenticatable
         return $this->roles()->where('id', 1)->exists();
     }
 
+    public function getIsDoctorAttribute()
+    {
+        return $this->roles()->where('id', 3)->exists();
+    }
+
     public function patientDoctorPatients()
     {
         return $this->hasMany(DoctorPatient::class, 'patient_id', 'id');
