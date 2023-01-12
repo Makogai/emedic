@@ -8,7 +8,7 @@
                 <div class="card-header">
                     {{ trans('global.edit') }} {{ trans('cruds.user.title_singular') }}
                 </div>
-
+                
                 <div class="card-body">
                     <form method="POST" action="{{ route("frontend.users.update", [$user->id]) }}" enctype="multipart/form-data">
                         @method('PUT')
