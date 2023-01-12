@@ -28,6 +28,38 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <style>
+        #loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100000;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(255, 255, 255);
+            display: grid;
+            place-items: center;
+        }
+    </style>
+    <script>
+        function onReady(callback) {
+            var intervalId = window.setInterval(function() {
+                if (document.getElementsByTagName('body')[0] !== undefined) {
+                    window.clearInterval(intervalId);
+                    callback.call(this);
+                }
+            }, 1000);
+        }
+
+        function setVisible(selector, visible) {
+            document.querySelector(selector).style.display = visible ? 'block' : 'none';
+        }
+
+        onReady(function() {
+            setVisible('.app', true);
+            setVisible('#loading', false);
+        });
+    </script>
     @yield('styles')
     <style>
         .butt{
@@ -38,10 +70,17 @@
 </head>
 
 <body>
+<div id="loading">
+    <div class="d-flex flex-column">
+        <img class="w-25 mx-auto" src="{{asset('images/logo.png')}}" alt="">
+        <img class="w-100 loaderimg" src="{{asset('images/loader.gif')}}" alt="">
+    </div>
+
+</div>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white p-4">
             <div class="container">
-                
+
                 <button class="navbar-toggler butt" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <img src="/images/hamb.png" alt="">
                 </button>
@@ -140,7 +179,7 @@
                         @endguest
                     </ul>
                 </div>
-                
+
             </div>
         </nav>
 

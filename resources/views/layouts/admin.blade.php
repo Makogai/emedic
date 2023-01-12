@@ -33,12 +33,7 @@
             background-color: rgb(255, 255, 255);
             display: grid;
             place-items: center;
-        /*make first column take 30%*/
-        /*    grid-column: auto 30%;*/
         }
-        /*.loaderimg{*/
-        /*    margin-top: -90%;*/
-        /*}*/
     </style>
     <script>
         function onReady(callback) {
