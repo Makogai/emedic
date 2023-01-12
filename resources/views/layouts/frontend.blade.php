@@ -48,7 +48,7 @@
                     window.clearInterval(intervalId);
                     callback.call(this);
                 }
-            }, 1000);
+            }, 2500);
         }
 
         function setVisible(selector, visible) {
@@ -72,8 +72,8 @@
 <body>
 <div id="loading">
     <div class="d-flex flex-column">
-        <img class="w-25 mx-auto" src="{{asset('images/logo.png')}}" alt="">
-        <img class="w-100 loaderimg" src="{{asset('images/loader.gif')}}" alt="">
+        <img class="w-25 mx-auto mb-5" src="{{asset('images/logo.png')}}" alt="">
+        <img class="w-25 loaderimg mx-auto" src="{{asset('images/loader.svg')}}" alt="">
     </div>
 
 </div>

@@ -1,98 +1,110 @@
 @extends('layouts.frontend')
 @section('content')
+<style>
+    .siz{
+        font-size: 26px;
+    }
+    .imaa{
+        height:58px;
+        width: 58px;
+    }
+    .hed{
+        font-weight: bold;
+        margin:0;
+    }
+    .butn{
+        width: 150px;
+        height: 120px;
+        background: rgb(34,132,117);
+        background: linear-gradient(0deg, rgba(34,132,117,0.13489145658263302) 0%, rgba(255,255,255,1) 100%);
+        padding-bottom: 25px;
+        text-align: center;
+        border:0;
+        border-radius: 10px;
+        font-size: 16px;
+
+    }
+    .card{
+        border: 0;
+    }
+    .test1{
+        width: 100%;
+    }
+    .notif{
+        
+        height: 130px;
+        background: rgb(255,255,255);
+        background: linear-gradient(180deg, rgba(255,255,255,0.13489145658263302) 0%, rgba(255,255,255,0.23573179271708689) 55%, rgba(143,205,196,0.4066001400560224) 100%);
+        position: relative;
+        }
+    .read{
+        height: 130px;
+        position:relative;
+        
+    }
+    .proba{
+        font-weight: bold;
+        margin:0;
+        opacity: 0.7;
+    }
+    .reead{
+        margin:0;
+        opacity: 0.7;
+    }
+    .reead-icon{
+        opacity: 0.7;
+    }
+    .blabla{
+        position: absolute;
+        top:0;
+        right: 0;
+        font-size: 12px;
+
+    }
+    .boticon{
+        position:absolute;
+        bottom: 0;
+        right: 0;
+    }
+    .heding{
+        font-size: 25px;
+        
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            @can('medication_create')
-                <div style="margin-bottom: 10px;" class="row">
-                    <div class="col-lg-12">
-                        <a class="btn btn-success" href="{{ route('frontend.medications.create') }}">
-                            {{ trans('global.add') }} {{ trans('cruds.medication.title_singular') }}
-                        </a>
-                    </div>
-                </div>
-            @endcan
-            <div class="card">
-                <div class="card-header">
-                    {{ trans('cruds.medication.title_singular') }} {{ trans('global.list') }}
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Medication">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.medication.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.medication.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.medication.fields.doctor') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.medication.fields.patient') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.medication.fields.isread') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($medications as $key => $medication)
-                                    <tr data-entry-id="{{ $medication->id }}">
-                                        <td>
-                                            {{ $medication->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $medication->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $medication->doctor->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $medication->patient->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ App\Models\Medication::ISREAD_RADIO[$medication->isread] ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('medication_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('frontend.medications.show', $medication->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('medication_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.medications.edit', $medication->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('medication_delete')
-                                                <form action="{{ route('frontend.medications.destroy', $medication->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="col-12">
+            <div class="row justify-content-center heding mb-2">
+                <p class="">
+                    Propisani lekovi
+                </p>
             </div>
-
         </div>
+        <div class="col-md-12">
+            <div class="row read">
+                <div class="blabla pr-2 ">
+                    OVDE IDE VREME
+                </div>
+                <div class="col-4 d-flex mx-auto pt-2 content-align-center align-items-center reead-icon ">
+                    <img src="/images/droga1.png" alt="" class="">
+                </div>
+                <div class="col-8 justify-content-center pl-4 d-flex flex-column test1">
+                    <p class="proba">
+                        Izvestaj i misljenje
+                    </p>
+                    <span class="reead">
+                        Propisao: Fiip Smolovic
+                        Cijena:5,63$
+                    </span>             
+                </div>
+                <div class="boticon pr-2">
+                    <img src="/images/boticon.png" alt="">
+                </div>
+            </div>         
+        </div>
+        
     </div>
+            
 </div>
 @endsection
 @section('scripts')
