@@ -56,7 +56,7 @@
         }
 
         onReady(function() {
-            setVisible('.app', true);
+            setVisible('#app', true);
             setVisible('#loading', false);
         });
     </script>
