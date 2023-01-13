@@ -60,7 +60,7 @@
 <div id="loading">
     <div class="d-flex flex-column">
         <img class="w-25 mx-auto" src="{{asset('images/logo.png')}}" alt="">
-        <img class="w-100 loaderimg" src="{{asset('images/loader.gif')}}" alt="">
+        <img class="w-100 loaderimg" src="{{asset('images/loader2.gif')}}" alt="">
     </div>
 
 </div>
