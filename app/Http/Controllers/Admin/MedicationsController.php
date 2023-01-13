@@ -23,7 +23,7 @@ class MedicationsController extends Controller
     {
         abort_if(Gate::denies('medication_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $medications = Medication::with(['doctor', 'patient', 'drugs'])->get();
+        $medications = Medication::with(['doctor', 'patient', 'drug'])->get();
 
         return view('admin.medications.index', compact('medications'));
     }
@@ -78,7 +78,7 @@ class MedicationsController extends Controller
     {
         abort_if(Gate::denies('medication_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $medication->load('doctor', 'patient', 'drugs');
+        $medication->load('doctor', 'patient', 'drug');
 
         return view('admin.medications.show', compact('medication'));
     }
