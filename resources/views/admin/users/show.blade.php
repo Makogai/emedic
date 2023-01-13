@@ -65,6 +65,58 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.image') }}
+                        </th>
+                        <td>
+                            @if($user->image)
+                                <a href="{{ $user->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $user->image->getUrl('thumb') }}">
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.registration_code') }}
+                        </th>
+                        <td>
+                            {{ $user->registration_code }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.bio') }}
+                        </th>
+                        <td>
+                            {!! $user->bio !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.sector') }}
+                        </th>
+                        <td>
+                            {{ $user->sector->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.phone_number') }}
+                        </th>
+                        <td>
+                            {{ $user->phone_number }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.jmbg') }}
+                        </th>
+                        <td>
+                            {{ $user->jmbg }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -122,6 +174,16 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#doctor_appointments" role="tab" data-toggle="tab">
+                {{ trans('cruds.appointment.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#patient_appointments" role="tab" data-toggle="tab">
+                {{ trans('cruds.appointment.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
@@ -151,6 +213,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="patient_tests">
             @includeIf('admin.users.relationships.patientTests', ['tests' => $user->patientTests])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="doctor_appointments">
+            @includeIf('admin.users.relationships.doctorAppointments', ['appointments' => $user->doctorAppointments])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="patient_appointments">
+            @includeIf('admin.users.relationships.patientAppointments', ['appointments' => $user->patientAppointments])
         </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])

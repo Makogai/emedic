@@ -41,6 +41,18 @@
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.image') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.registration_code') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.sector') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.jmbg') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -71,6 +83,22 @@
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                @if($user->image)
+                                    <a href="{{ $user->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $user->image->getUrl('thumb') }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $user->registration_code ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->sector->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->jmbg ?? '' }}
                             </td>
                             <td>
                                 @can('user_show')

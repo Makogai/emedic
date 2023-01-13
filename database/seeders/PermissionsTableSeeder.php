@@ -172,6 +172,70 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 41,
+                'title' => 'appointment_create',
+            ],
+            [
+                'id'    => 42,
+                'title' => 'appointment_edit',
+            ],
+            [
+                'id'    => 43,
+                'title' => 'appointment_show',
+            ],
+            [
+                'id'    => 44,
+                'title' => 'appointment_delete',
+            ],
+            [
+                'id'    => 45,
+                'title' => 'appointment_access',
+            ],
+            [
+                'id'    => 46,
+                'title' => 'drug_create',
+            ],
+            [
+                'id'    => 47,
+                'title' => 'drug_edit',
+            ],
+            [
+                'id'    => 48,
+                'title' => 'drug_show',
+            ],
+            [
+                'id'    => 49,
+                'title' => 'drug_delete',
+            ],
+            [
+                'id'    => 50,
+                'title' => 'drug_access',
+            ],
+            [
+                'id'    => 51,
+                'title' => 'patient_management_access',
+            ],
+            [
+                'id'    => 52,
+                'title' => 'doctor_field_create',
+            ],
+            [
+                'id'    => 53,
+                'title' => 'doctor_field_edit',
+            ],
+            [
+                'id'    => 54,
+                'title' => 'doctor_field_show',
+            ],
+            [
+                'id'    => 55,
+                'title' => 'doctor_field_delete',
+            ],
+            [
+                'id'    => 56,
+                'title' => 'doctor_field_access',
+            ],
+            [
+                'id'    => 57,
                 'title' => 'profile_password_edit',
             ],
         ];

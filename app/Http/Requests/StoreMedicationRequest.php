@@ -17,12 +17,6 @@ class StoreMedicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'string',
-                'min:1',
-                'max:150',
-                'required',
-            ],
             'purpose' => [
                 'required',
             ],
@@ -34,6 +28,10 @@ class StoreMedicationRequest extends FormRequest
                 'integer',
             ],
             'patient_id' => [
+                'required',
+                'integer',
+            ],
+            'drug_id' => [
                 'required',
                 'integer',
             ],

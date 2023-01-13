@@ -86,14 +86,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.medication.fields.name') }}
-                                    </th>
-                                    <td>
-                                        {{ $medication->name }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.medication.fields.purpose') }}
                                     </th>
                                     <td>
@@ -134,10 +126,12 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.medication.fields.image') }}
+                                        {{ trans('cruds.medication.fields.drug') }}
                                     </th>
                                     <td>
-
+                                        @foreach($medication->drugs as $key => $drug)
+                                            <span class="label label-info">{{ $drug->name }}</span>
+                                        @endforeach
                                     </td>
                                 </tr>
                             </tbody>

@@ -44,6 +44,22 @@ class UpdateTestRequest extends FormRequest
                 'max:150',
                 'required',
             ],
+            'blood_preasure' => [
+                'string',
+                'nullable',
+            ],
+            'heart_rate' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'oxygen' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
         ];
     }
 }

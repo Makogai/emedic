@@ -27,9 +27,12 @@ class DoctorPatientController extends Controller
     {
         abort_if(Gate::denies('doctor_patient_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $patients = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $patients = User::patients()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $doctors = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        // Get users with role id 3 (doctor)
+        $doctors = User::medics()
+            ->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
 
         return view('admin.doctorPatients.create', compact('doctors', 'patients'));
     }

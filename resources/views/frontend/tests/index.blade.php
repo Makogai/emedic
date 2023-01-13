@@ -47,6 +47,15 @@
                                         {{ trans('cruds.test.fields.tip') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.test.fields.blood_preasure') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.test.fields.heart_rate') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.test.fields.oxygen') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -81,6 +90,15 @@
                                         </td>
                                         <td>
                                             {{ $test->tip ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $test->blood_preasure ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $test->heart_rate ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $test->oxygen ?? '' }}
                                         </td>
                                         <td>
                                             @can('test_show')

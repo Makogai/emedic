@@ -18,6 +18,10 @@ class CreateUsersTable extends Migration
             $table->datetime('verified_at')->nullable();
             $table->string('verification_token')->nullable();
             $table->string('remember_token')->nullable();
+            $table->string('registration_code')->nullable();
+            $table->longText('bio')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('jmbg')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
