@@ -1,10 +1,68 @@
 @extends('layouts.frontend')
 @section('content')
+<style>
+    .medimg {
+        width: 220px;
+        height: 145px;
+    }
+
+    .medname {
+        font-size: 25px;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <div class="row">
+                <div class="col-12">
+                    <a class="btn  float-right" href="{{ route('frontend.medications.index') }}">
+                        <img src="/images/close.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 justify-content-center d-flex">
+                    <img src="/images/droga2.png" alt="" class="medimg">
+                    @if($medication->image)
+                    <a href="{{ $medication->image->getUrl() }}" target="_blank" style="display: inline-block">
+                        <img src="{{ $medication->image->getUrl('thumb') }}" class="">
+                    </a>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="medname">
+                        {{ $medication->name }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4>Indikacije</h4>
+                    <p>
+                        {!! $medication->purpose !!}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <div data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h4>
+                            Upotreba
+                            <img src="/images/open.png" alt="" > 
+                        </h4>       
+                    </div>                                     
+                    <div class="collapse" id="collapseExample">
+                        <p> 
+                            {!! $medication->usage !!}
+                        </p>
+                       
+                    </div>                    
+                </div>
 
-            <div class="card">
+            </div>
+            <div class="card mt-5">
                 <div class="card-header">
                     {{ trans('global.show') }} {{ trans('cruds.medication.title') }}
                 </div>
@@ -79,11 +137,7 @@
                                         {{ trans('cruds.medication.fields.image') }}
                                     </th>
                                     <td>
-                                        @if($medication->image)
-                                            <a href="{{ $medication->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                                <img src="{{ $medication->image->getUrl('thumb') }}">
-                                            </a>
-                                        @endif
+
                                     </td>
                                 </tr>
                             </tbody>
