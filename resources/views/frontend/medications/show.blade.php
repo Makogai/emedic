@@ -28,6 +28,10 @@
                         <img src="{{ $medication->image->getUrl('thumb') }}" class="">
                     </a>
                     @endif
+                    <p>
+                    {{ $medication->doctor->name ?? '' }}
+                    {{ $medication->patient->name ?? '' }}
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -105,7 +109,7 @@
                                         {{ trans('cruds.medication.fields.doctor') }}
                                     </th>
                                     <td>
-                                        {{ $medication->doctor->name ?? '' }}
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -113,7 +117,7 @@
                                         {{ trans('cruds.medication.fields.patient') }}
                                     </th>
                                     <td>
-                                        {{ $medication->patient->name ?? '' }}
+                                        
                                     </td>
                                 </tr>
                                 <tr>
