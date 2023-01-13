@@ -54,15 +54,15 @@
                     <div data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                         <h4>
                             Upotreba
-                            <img src="/images/open.png" alt="" > 
-                        </h4>       
-                    </div>                                     
+                            <img src="/images/open.png" alt="" >
+                        </h4>
+                    </div>
                     <div class="collapse" id="collapseExample">
-                        <p> 
+                        <p>
                             {!! $medication->usage !!}
                         </p>
-                       
-                    </div>                    
+
+                    </div>
                 </div>
 
             </div>
@@ -109,7 +109,7 @@
                                         {{ trans('cruds.medication.fields.doctor') }}
                                     </th>
                                     <td>
-                                        
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -117,7 +117,7 @@
                                         {{ trans('cruds.medication.fields.patient') }}
                                     </th>
                                     <td>
-                                        
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -133,9 +133,7 @@
                                         {{ trans('cruds.medication.fields.drug') }}
                                     </th>
                                     <td>
-                                        @foreach($medication->drugs as $key => $drug)
-                                            <span class="label label-info">{{ $drug->name }}</span>
-                                        @endforeach
+                                        <span class="label label-info">{{ $medication->drug->name }}</span>
                                     </td>
                                 </tr>
                             </tbody>

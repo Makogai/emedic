@@ -247,6 +247,11 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(DoctorField::class, 'sector_id');
     }
 
+    public function doctorField()
+    {
+        return $this->belongsTo(DoctorField::class, 'sector_id');
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

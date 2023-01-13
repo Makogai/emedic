@@ -60,9 +60,7 @@
                                     {{ App\Models\Medication::ISREAD_RADIO[$medication->isread] ?? '' }}
                                 </td>
                                 <td>
-                                    @foreach($medication->drugs as $key => $item)
-                                        <span class="badge badge-info">{{ $item->name }}</span>
-                                    @endforeach
+                                    <span class="badge badge-info">{{ $medication->drug->name }}</span>
                                 </td>
                                 <td>
                                     @can('medication_show')
@@ -140,7 +138,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

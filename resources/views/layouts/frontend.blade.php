@@ -57,7 +57,7 @@
                     window.clearInterval(intervalId);
                     callback.call(this);
                 }
-            }, 2500);
+            }, 250);
         }
 
         function setVisible(selector, visible) {

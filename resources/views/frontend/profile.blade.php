@@ -1,4 +1,45 @@
 @extends('layouts.frontend')
+@section('styles')
+    <script src="{{asset('fc/dist/index.global.js')}}"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridFourDay',
+                events: '/calendar',
+                height: 180,
+                views: {
+                    dayGridFourDay: {
+                        type: 'dayGrid',
+                        duration: { days: 4 },
+                        buttonText: '4 day'
+                    }
+                }
+            });
+            calendar.render();
+
+
+        });
+
+        //wait 100 ms
+        setTimeout(function() {
+            //then scroll to the element with the id of 'calendar'
+            document.querySelector('.fc-next-button').addEventListener('click', function() {
+                ah();
+            });
+        }, 1000);
+
+
+        function ah(){
+            let a = document.querySelector('.fc-event-title');
+            a.insertBefore(document.createElement('br'), null);
+        }
+
+
+    </script>
+@endsection
 @section('content')
     <style>
         .siz{
@@ -22,6 +63,7 @@
             border:0;
             border-radius: 10px;
             font-size: 16px;
+            color: black;
 
         }
         .card{
@@ -67,11 +109,11 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="row">
-                        <div class="col-6 pl-4 pr-0">
+                        <div class="col-4 pl-4 pr-0">
                             <img src="/images/profile.png" alt="" class="">
                         </div>
-                        <div class="col-6 align-items-center d-flex p-0 ">
-                            <p class="siz">{{auth()->user()->name}} Smolovic</p>
+                        <div class="col-8 pl-4 align-items-center d-flex p-0 ">
+                            <p class="siz">{{auth()->user()->name}}</p>
 
                         </div>
                     </div>
@@ -83,7 +125,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 p-0">
-                                <img src="/images/test.png" alt="" class="test1">
+                                <div id='calendar'></div>
+{{--                                <img src="/images/test.png" alt="" class="test1">--}}
                             </div>
                         </div>
                     </div>
@@ -91,11 +134,11 @@
                     <div class="row mb-4 gap-4">
 
                         <div class="col-6 d-flex mx-auto content-align-center p-0">
-                            <button class="butn d-block mx-auto">
+                            <a href="" class="butn d-block mx-auto">
                                 <img src="/images/icon1.png" alt=""><br>
                                 Izvestaj i misljenje ljekara
 
-                            </button>
+                            </a>
                         </div>
                         <div class="col-6 align-items-center content-align-center p-0">
                             <button class="butn d-block mx-auto">
@@ -108,10 +151,10 @@
                     <div class="row gap-4">
 
                         <div class="col-6 d-flex mx-auto content-align-center p-0">
-                            <button class="butn d-block mx-auto">
+                            <a href="{{route('frontend.docs')}}" class="butn d-block mx-auto">
                                 <img src="/images/docs.png" alt=""><br>
-                                Izvestaj i misljenje ljekara
-                            </button>
+                                ILjekari pacijenta
+                            </a>
                         </div>
                         <div class="col-6 align-items-center content-align-center p-0">
                             <button class="butn d-block mx-auto">
@@ -126,43 +169,6 @@
             </div>
 
         </div>
-        <div class="row notif">
-            <div class="blabla ">
-                aALAHUU AKBAR
-            </div>
-            <div class="col-3 d-flex mx-auto pt-2 pr-0 pl-4 content-align-center align-items-center ">
-                <img src="/images/docic.png" alt="" class="imaa">
-            </div>
-            <div class="col-9 justify-content-center d-flex flex-column p-0 test1">
-                <p class="hed">
-                    Izvestaj i misljenje
-                </p>
-                <span class="">
-                        Dr. Janko Janković je postavio
-                        novi izvještaj/mišljenje.
-                    </span>
 
-            </div>
-
-        </div>
-        <div class="row read">
-            <div class="blabla ">
-                aALAHUU AKBAR
-            </div>
-            <div class="col-3 d-flex mx-auto pt-2 pr-0 pl-4 content-align-center align-items-center reead-icon ">
-                <img src="/images/docic.png" alt="" class="imaa">
-            </div>
-            <div class="col-9 justify-content-center d-flex flex-column p-0 test1">
-                <p class="proba">
-                    Izvestaj i misljenje
-                </p>
-                <span class="reead">
-                        Dr. Janko Janković je postavio
-                        novi izvještaj/mišljenje.
-                    </span>
-
-            </div>
-
-        </div>
     </div>
 @endsection

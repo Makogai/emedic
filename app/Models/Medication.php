@@ -19,6 +19,10 @@ class Medication extends Model implements HasMedia
     public const ISREAD_RADIO = [
     ];
 
+    protected $appends = [
+        'date',
+    ];
+
     public $table = 'medications';
 
     protected $dates = [
@@ -36,6 +40,7 @@ class Medication extends Model implements HasMedia
         'created_at',
         'updated_at',
         'deleted_at',
+        'drug_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -62,5 +67,11 @@ class Medication extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    // get human readable diff for date
+    public function getDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

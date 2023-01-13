@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\DoctorPatient;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,5 +45,17 @@ class ProfileController extends Controller
         auth()->user()->update($request->validated());
 
         return redirect()->route('frontend.profile.index')->with('message', __('global.change_password_success'));
+    }
+
+    public function docs()
+    {
+        $docs = DoctorPatient::where('patient_id', auth()->user()->id)->with('doctor', 'doctor.doctorField')->get();
+        return view('frontend.docs', compact('docs'));
+    }
+
+    public function doc(User $user)
+    {
+        $user->load('doctorField');
+        return view('frontend.doc', compact('user'));
     }
 }

@@ -138,6 +138,25 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::post('frontend/profile/destroy', 'ProfileController@destroy')->name('profile.destroy');
     Route::post('frontend/profile/password', 'ProfileController@password')->name('profile.password');
 
+    Route::get('docs', 'ProfileController@docs')->name('docs');
+    Route::get('doc/{user}', 'ProfileController@doc')->name('doc');
+
+    Route::get('calendar', function () {
+        $events = [];
+        $data = \App\Models\Appointment::where('patient_id', auth()->user()->id)->get();
+        if ($data->count()) {
+            foreach ($data as $key => $value) {
+                $events[] = [
+                    'title' => $value->purpose,
+                    'start' => $value->date,
+                    'url' => route('frontend.appointments.show', $value->id),
+                    'allDay' => true,
+                ];
+            }
+        }
+        return json_encode($events);
+    });
+
     Route::get('notifications', function(){
         return view('frontend.notifications');
     });

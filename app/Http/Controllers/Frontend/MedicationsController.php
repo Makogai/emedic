@@ -22,7 +22,7 @@ class MedicationsController extends Controller
     {
         abort_if(Gate::denies('medication_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $medications = Medication::with(['doctor', 'patient', 'media'])->get();
+        $medications = Medication::with(['doctor', 'patient', 'media'])->where('patient_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
 
         return view('frontend.medications.index', compact('medications'));
     }

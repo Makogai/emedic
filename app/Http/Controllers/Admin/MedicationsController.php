@@ -24,6 +24,7 @@ class MedicationsController extends Controller
         abort_if(Gate::denies('medication_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $medications = Medication::with(['doctor', 'patient', 'drug'])->get();
+//        dd($medications);
 
         return view('admin.medications.index', compact('medications'));
     }
@@ -44,6 +45,7 @@ class MedicationsController extends Controller
     public function store(StoreMedicationRequest $request)
     {
         $medication = Medication::create($request->all());
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $medication->id]);
         }
@@ -61,7 +63,7 @@ class MedicationsController extends Controller
 
         $drugs = Drug::pluck('name', 'id');
 
-        $medication->load('doctor', 'patient', 'drugs');
+        $medication->load('doctor', 'patient', 'drug');
 
         return view('admin.medications.edit', compact('doctors', 'drugs', 'medication', 'patients'));
     }
@@ -69,7 +71,6 @@ class MedicationsController extends Controller
     public function update(UpdateMedicationRequest $request, Medication $medication)
     {
         $medication->update($request->all());
-        $medication->drugs()->sync($request->input('drugs', []));
 
         return redirect()->route('admin.medications.index');
     }
