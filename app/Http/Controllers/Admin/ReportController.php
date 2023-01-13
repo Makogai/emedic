@@ -31,9 +31,9 @@ class ReportController extends Controller
     {
         abort_if(Gate::denies('report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $doctors = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $doctors = User::medics()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $patients = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $patients = User::patients()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.reports.create', compact('doctors', 'patients'));
     }

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyMedicationRequest;
 use App\Http\Requests\StoreMedicationRequest;
 use App\Http\Requests\UpdateMedicationRequest;
+use App\Models\Drug;
 use App\Models\Medication;
 use App\Models\User;
 use Gate;
@@ -22,75 +23,64 @@ class MedicationsController extends Controller
     {
         abort_if(Gate::denies('medication_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $medications = Medication::with(['doctor', 'patient', 'media'])->get();
+        $medications = Medication::with(['doctor', 'patient', 'drug'])->get();
 
-        return view('frontend.medications.index', compact('medications'));
+        return view('admin.medications.index', compact('medications'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('medication_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $doctors = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $doctors = User::medics()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $patients = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $patients = User::patients()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.medications.create', compact('doctors', 'patients'));
+        $drugs = Drug::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.medications.create', compact('doctors', 'drugs', 'patients'));
     }
 
     public function store(StoreMedicationRequest $request)
     {
         $medication = Medication::create($request->all());
 
-        if ($request->input('image', false)) {
-            $medication->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
-        }
-
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $medication->id]);
         }
 
-        return redirect()->route('frontend.medications.index');
+        return redirect()->route('admin.medications.index');
     }
 
     public function edit(Medication $medication)
     {
         abort_if(Gate::denies('medication_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $doctors = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $doctors = User::medics()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $patients = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $patients = User::patients()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $medication->load('doctor', 'patient');
+        $drugs = Drug::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.medications.edit', compact('doctors', 'medication', 'patients'));
+        $medication->load('doctor', 'patient', 'drug');
+
+        return view('admin.medications.edit', compact('doctors', 'drugs', 'medication', 'patients'));
     }
 
     public function update(UpdateMedicationRequest $request, Medication $medication)
     {
         $medication->update($request->all());
 
-        if ($request->input('image', false)) {
-            if (!$medication->image || $request->input('image') !== $medication->image->file_name) {
-                if ($medication->image) {
-                    $medication->image->delete();
-                }
-                $medication->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
-            }
-        } elseif ($medication->image) {
-            $medication->image->delete();
-        }
-
-        return redirect()->route('frontend.medications.index');
+        return redirect()->route('admin.medications.index');
     }
 
     public function show(Medication $medication)
     {
         abort_if(Gate::denies('medication_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $medication->load('doctor', 'patient');
+        $medication->load('doctor', 'patient', 'drug');
 
-        return view('frontend.medications.show', compact('medication'));
+        return view('admin.medications.show', compact('medication'));
     }
 
     public function destroy(Medication $medication)

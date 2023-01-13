@@ -28,14 +28,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.medication.fields.name') }}
-                                    </th>
-                                    <td>
-                                        {{ $medication->name }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.medication.fields.purpose') }}
                                     </th>
                                     <td>
@@ -76,14 +68,12 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.medication.fields.image') }}
+                                        {{ trans('cruds.medication.fields.drug') }}
                                     </th>
                                     <td>
-                                        @if($medication->image)
-                                            <a href="{{ $medication->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                                <img src="{{ $medication->image->getUrl('thumb') }}">
-                                            </a>
-                                        @endif
+                                        @foreach($medication->drugs as $key => $drug)
+                                            <span class="label label-info">{{ $drug->name }}</span>
+                                        @endforeach
                                     </td>
                                 </tr>
                             </tbody>

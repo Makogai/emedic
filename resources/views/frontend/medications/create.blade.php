@@ -14,16 +14,6 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label class="required" for="name">{{ trans('cruds.medication.fields.name') }}</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', '') }}" required>
-                            @if($errors->has('name'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('name') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.medication.fields.name_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <label for="purpose">{{ trans('cruds.medication.fields.purpose') }}</label>
                             <textarea class="form-control ckeditor" name="purpose" id="purpose">{!! old('purpose') !!}</textarea>
                             @if($errors->has('purpose'))
@@ -70,6 +60,24 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.medication.fields.patient_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="drugs">{{ trans('cruds.medication.fields.drug') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2" name="drugs[]" id="drugs" multiple required>
+                                @foreach($drugs as $id => $drug)
+                                    <option value="{{ $id }}" {{ in_array($id, old('drugs', [])) ? 'selected' : '' }}>{{ $drug }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('drugs'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('drugs') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.medication.fields.drug_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

@@ -17,6 +17,10 @@ class StoreDoctorPatientRequest extends FormRequest
     public function rules()
     {
         return [
+            'patient_id' => [
+                'required',
+                'integer',
+            ],
             'doctor_id' => [
                 'required',
                 'integer',

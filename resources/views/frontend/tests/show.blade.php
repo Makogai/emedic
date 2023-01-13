@@ -94,6 +94,30 @@
                                         {{ $test->tip }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.test.fields.blood_preasure') }}
+                                    </th>
+                                    <td>
+                                        {{ $test->blood_preasure }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.test.fields.heart_rate') }}
+                                    </th>
+                                    <td>
+                                        {{ $test->heart_rate }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.test.fields.oxygen') }}
+                                    </th>
+                                    <td>
+                                        {{ $test->oxygen }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

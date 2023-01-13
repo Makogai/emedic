@@ -14,9 +14,7 @@
                 <label class="required" for="title">{{ trans('cruds.test.fields.title') }}</label>
                 <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $test->title) }}" required>
                 @if($errors->has('title'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('title') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('title') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.title_helper') }}</span>
             </div>
@@ -24,9 +22,7 @@
                 <label for="content">{{ trans('cruds.test.fields.content') }}</label>
                 <textarea class="form-control ckeditor {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="content">{!! old('content', $test->content) !!}</textarea>
                 @if($errors->has('content'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('content') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('content') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.content_helper') }}</span>
             </div>
@@ -35,9 +31,7 @@
                 <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="file-dropzone">
                 </div>
                 @if($errors->has('file'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('file') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('file') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.file_helper') }}</span>
             </div>
@@ -45,9 +39,7 @@
                 <label class="required" for="date">{{ trans('cruds.test.fields.date') }}</label>
                 <input class="form-control datetime {{ $errors->has('date') ? 'is-invalid' : '' }}" type="text" name="date" id="date" value="{{ old('date', $test->date) }}" required>
                 @if($errors->has('date'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('date') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('date') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.date_helper') }}</span>
             </div>
@@ -59,9 +51,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('doctor'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('doctor') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('doctor') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.doctor_helper') }}</span>
             </div>
@@ -73,9 +63,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('patient'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('patient') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('patient') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.patient_helper') }}</span>
             </div>
@@ -83,11 +71,33 @@
                 <label class="required" for="tip">{{ trans('cruds.test.fields.tip') }}</label>
                 <input class="form-control {{ $errors->has('tip') ? 'is-invalid' : '' }}" type="text" name="tip" id="tip" value="{{ old('tip', $test->tip) }}" required>
                 @if($errors->has('tip'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tip') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('tip') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.test.fields.tip_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="blood_preasure">{{ trans('cruds.test.fields.blood_preasure') }}</label>
+                <input class="form-control {{ $errors->has('blood_preasure') ? 'is-invalid' : '' }}" type="text" name="blood_preasure" id="blood_preasure" value="{{ old('blood_preasure', $test->blood_preasure) }}">
+                @if($errors->has('blood_preasure'))
+                    <span class="text-danger">{{ $errors->first('blood_preasure') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.test.fields.blood_preasure_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="heart_rate">{{ trans('cruds.test.fields.heart_rate') }}</label>
+                <input class="form-control {{ $errors->has('heart_rate') ? 'is-invalid' : '' }}" type="number" name="heart_rate" id="heart_rate" value="{{ old('heart_rate', $test->heart_rate) }}" step="1">
+                @if($errors->has('heart_rate'))
+                    <span class="text-danger">{{ $errors->first('heart_rate') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.test.fields.heart_rate_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="oxygen">{{ trans('cruds.test.fields.oxygen') }}</label>
+                <input class="form-control {{ $errors->has('oxygen') ? 'is-invalid' : '' }}" type="number" name="oxygen" id="oxygen" value="{{ old('oxygen', $test->oxygen) }}" step="1">
+                @if($errors->has('oxygen'))
+                    <span class="text-danger">{{ $errors->first('oxygen') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.test.fields.oxygen_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

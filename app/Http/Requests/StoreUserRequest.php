@@ -35,6 +35,24 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'registration_code' => [
+                'string',
+                'min:5',
+                'max:5',
+                'nullable',
+            ],
+            'phone_number' => [
+                'string',
+                'min:1',
+                'max:100',
+                'nullable',
+            ],
+            'jmbg' => [
+                'string',
+                'min:13',
+                'max:13',
+                'required',
+            ],
         ];
     }
 }

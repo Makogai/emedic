@@ -93,6 +93,36 @@
                             <span class="help-block">{{ trans('cruds.test.fields.tip_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="blood_preasure">{{ trans('cruds.test.fields.blood_preasure') }}</label>
+                            <input class="form-control" type="text" name="blood_preasure" id="blood_preasure" value="{{ old('blood_preasure', $test->blood_preasure) }}">
+                            @if($errors->has('blood_preasure'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('blood_preasure') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.test.fields.blood_preasure_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="heart_rate">{{ trans('cruds.test.fields.heart_rate') }}</label>
+                            <input class="form-control" type="number" name="heart_rate" id="heart_rate" value="{{ old('heart_rate', $test->heart_rate) }}" step="1">
+                            @if($errors->has('heart_rate'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('heart_rate') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.test.fields.heart_rate_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="oxygen">{{ trans('cruds.test.fields.oxygen') }}</label>
+                            <input class="form-control" type="number" name="oxygen" id="oxygen" value="{{ old('oxygen', $test->oxygen) }}" step="1">
+                            @if($errors->has('oxygen'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('oxygen') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.test.fields.oxygen_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

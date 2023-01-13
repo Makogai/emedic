@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="patient_id">{{ trans('cruds.doctorPatient.fields.patient') }}</label>
-                            <select class="form-control select2" name="patient_id" id="patient_id">
+                            <label class="required" for="patient_id">{{ trans('cruds.doctorPatient.fields.patient') }}</label>
+                            <select class="form-control select2" name="patient_id" id="patient_id" required>
                                 @foreach($patients as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('patient_id') ? old('patient_id') : $doctorPatient->patient->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

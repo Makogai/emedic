@@ -1,34 +1,26 @@
 @extends('layouts.admin')
 @section('content')
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.medication.title') }}
-    </div>
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.show') }} {{ trans('cruds.medication.title') }}
+        </div>
 
-    <div class="card-body">
-        <div class="form-group">
+        <div class="card-body">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.medications.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
-            </div>
-            <table class="table table-bordered table-striped">
-                <tbody>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.medications.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <tbody>
                     <tr>
                         <th>
                             {{ trans('cruds.medication.fields.id') }}
                         </th>
                         <td>
                             {{ $medication->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.medication.fields.name') }}
-                        </th>
-                        <td>
-                            {{ $medication->name }}
                         </td>
                     </tr>
                     <tr>
@@ -73,26 +65,22 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.medication.fields.image') }}
+                            {{ trans('cruds.medication.fields.drug') }}
                         </th>
                         <td>
-                            @if($medication->image)
-                                <a href="{{ $medication->image->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $medication->image->getUrl('thumb') }}">
-                                </a>
-                            @endif
+                            {{ $medication->drug->name ?? '' }}
                         </td>
                     </tr>
-                </tbody>
-            </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.medications.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.medications.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 

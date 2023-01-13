@@ -14,9 +14,7 @@
                 <label class="required" for="title">{{ trans('cruds.report.fields.title') }}</label>
                 <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $report->title) }}" required>
                 @if($errors->has('title'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('title') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('title') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.title_helper') }}</span>
             </div>
@@ -24,9 +22,7 @@
                 <label for="content">{{ trans('cruds.report.fields.content') }}</label>
                 <textarea class="form-control ckeditor {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="content">{!! old('content', $report->content) !!}</textarea>
                 @if($errors->has('content'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('content') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('content') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.content_helper') }}</span>
             </div>
@@ -35,9 +31,7 @@
                 <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="file-dropzone">
                 </div>
                 @if($errors->has('file'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('file') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('file') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.file_helper') }}</span>
             </div>
@@ -45,9 +39,7 @@
                 <label class="required" for="date">{{ trans('cruds.report.fields.date') }}</label>
                 <input class="form-control datetime {{ $errors->has('date') ? 'is-invalid' : '' }}" type="text" name="date" id="date" value="{{ old('date', $report->date) }}" required>
                 @if($errors->has('date'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('date') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('date') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.date_helper') }}</span>
             </div>
@@ -59,9 +51,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('doctor'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('doctor') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('doctor') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.doctor_helper') }}</span>
             </div>
@@ -73,9 +63,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('patient'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('patient') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('patient') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.patient_helper') }}</span>
             </div>

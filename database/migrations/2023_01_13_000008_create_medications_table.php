@@ -10,7 +10,6 @@ class CreateMedicationsTable extends Migration
     {
         Schema::create('medications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->longText('purpose');
             $table->longText('usage');
             $table->string('isread')->nullable();

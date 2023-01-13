@@ -68,6 +68,58 @@
                                         @endforeach
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.image') }}
+                                    </th>
+                                    <td>
+                                        @if($user->image)
+                                            <a href="{{ $user->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                                <img src="{{ $user->image->getUrl('thumb') }}">
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.registration_code') }}
+                                    </th>
+                                    <td>
+                                        {{ $user->registration_code }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.bio') }}
+                                    </th>
+                                    <td>
+                                        {!! $user->bio !!}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.sector') }}
+                                    </th>
+                                    <td>
+                                        {{ $user->sector->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.phone_number') }}
+                                    </th>
+                                    <td>
+                                        {{ $user->phone_number }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.jmbg') }}
+                                    </th>
+                                    <td>
+                                        {{ $user->jmbg }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

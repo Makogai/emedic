@@ -13,14 +13,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes;
+//    use SoftDeletes;
     use Notifiable;
+    use InteractsWithMedia;
     use HasFactory;
 
     public $table = 'users';
+
+    protected $appends = [
+        'image',
+    ];
 
     protected $hidden = [
         'remember_token',
@@ -44,6 +52,11 @@ class User extends Authenticatable
         'verified_at',
         'verification_token',
         'remember_token',
+        'registration_code',
+        'bio',
+        'sector_id',
+        'phone_number',
+        'jmbg',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -89,6 +102,42 @@ class User extends Authenticatable
         return $this->roles()->where('id', 3)->exists();
     }
 
+    // hasVerifiedCode() method
+    public function hasVerifiedCode()
+    {
+        return is_null($this->registration_code);
+    }
+
+    //markCodeAsVerified() method
+    public function markCodeAsVerified()
+    {
+        return $this->forceFill([
+            'registration_code' => null,
+        ])->save();
+    }
+
+    // Scope for getting all users with role id 3
+    public function scopeMedics($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('id', 3);
+        });
+    }
+
+    // Scope for getting all users with role id 2
+    public function scopePatients($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('id', 2);
+        });
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
     public function patientDoctorPatients()
     {
         return $this->hasMany(DoctorPatient::class, 'patient_id', 'id');
@@ -127,6 +176,16 @@ class User extends Authenticatable
     public function patientTests()
     {
         return $this->hasMany(Test::class, 'patient_id', 'id');
+    }
+
+    public function doctorAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id', 'id');
+    }
+
+    public function patientAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id', 'id');
     }
 
     public function userUserAlerts()
@@ -169,6 +228,23 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function getImageAttribute()
+    {
+        $file = $this->getMedia('image')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
+    }
+
+    public function sector()
+    {
+        return $this->belongsTo(DoctorField::class, 'sector_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

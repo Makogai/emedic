@@ -31,9 +31,9 @@ class TestController extends Controller
     {
         abort_if(Gate::denies('test_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $doctors = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $doctors = User::medics()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $patients = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $patients = User::patients()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.tests.create', compact('doctors', 'patients'));
     }
@@ -57,9 +57,9 @@ class TestController extends Controller
     {
         abort_if(Gate::denies('test_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $doctors = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $doctors = User::medics()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $patients = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $patients = User::patients()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $test->load('doctor', 'patient');
 
