@@ -1,163 +1,148 @@
 @extends('layouts.frontend')
 @section('content')
+<style>
+    .heding {
+        font-size: 25px;
+
+    }
+
+    .siz {
+        font-size: 26px;
+    }
+
+    .imaa {
+        height: 58px;
+        width: 58px;
+    }
+
+    .hed {
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .butn {
+        width: 150px;
+        height: 120px;
+        background: rgb(34, 132, 117);
+        background: linear-gradient(0deg, rgba(34, 132, 117, 0.13489145658263302) 0%, rgba(255, 255, 255, 1) 100%);
+        padding-bottom: 25px;
+        text-align: center;
+        border: 0;
+        border-radius: 10px;
+        font-size: 16px;
+
+    }
+
+    .card {
+        border: 0;
+    }
+
+    .test1 {
+        width: 100%;
+    }
+
+    .notif {
+
+        height: 130px;
+        background: rgb(255, 255, 255);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.13489145658263302) 0%, rgba(255, 255, 255, 0.23573179271708689) 55%, rgba(143, 205, 196, 0.4066001400560224) 100%);
+        position: relative;
+    }
+
+    .read {
+        height: 130px;
+        position: relative;
+        background: #F2F5F5;
+    }
+
+    .proba {
+        font-weight: bold;
+        margin: 0;
+        opacity: 0.7;
+    }
+
+    .reead {
+        margin: 0;
+        opacity: 0.7;
+    }
+
+    .reead-icon {
+        opacity: 0.7;
+    }
+
+    .blabla {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 12px;
+
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @can('report_create')
-                <div style="margin-bottom: 10px;" class="row">
-                    <div class="col-lg-12">
-                        <a class="btn btn-success" href="{{ route('frontend.reports.create') }}">
-                            {{ trans('global.add') }} {{ trans('cruds.report.title_singular') }}
-                        </a>
-                    </div>
-                </div>
-            @endcan
-            <div class="card">
-                <div class="card-header">
-                    {{ trans('cruds.report.title_singular') }} {{ trans('global.list') }}
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Report">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.report.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.report.fields.title') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.report.fields.file') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.report.fields.date') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.report.fields.doctor') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.report.fields.patient') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.report.fields.isread') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($reports as $key => $report)
-                                    <tr data-entry-id="{{ $report->id }}">
-                                        <td>
-                                            {{ $report->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $report->title ?? '' }}
-                                        </td>
-                                        <td>
-                                            @foreach($report->file as $key => $media)
-                                                <a href="{{ $media->getUrl() }}" target="_blank">
-                                                    {{ trans('global.view_file') }}
-                                                </a>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            {{ $report->date ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $report->doctor->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $report->patient->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ App\Models\Report::ISREAD_RADIO[$report->isread] ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('report_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('frontend.reports.show', $report->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('report_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.reports.edit', $report->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('report_delete')
-                                                <form action="{{ route('frontend.reports.destroy', $report->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="row justify-content-center heding mb-2">
+                <p>
+                    Izvestaj i misljenje ljekara
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p>
+                        Neotvorene:
+                    </p>
                 </div>
             </div>
 
+            <div class="row notif">
+                <div class="blabla ">
+                    {{ trans('cruds.report.fields.date') }}
+                </div>
+                <div class="col-3 d-flex mx-auto pt-2 pr-0 pl-4 content-align-center align-items-center ">
+                    <img src="/images/docic.png" alt="" class="imaa">
+                </div>
+                <div class="col-9 justify-content-center d-flex flex-column p-0 test1">
+                    <p class="hed">
+                        {{ trans('cruds.report.fields.title') }}
+                    </p>
+                    <span class="">
+                        {{ trans('cruds.report.fields.doctor') }}
+                    </span>
+
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-5">
+                <div class="col-12">
+                    <p>
+                        Otvorene:
+                    </p>
+                </div>
+            </div>
+
+            <div class="row read">
+                <div class="blabla ">
+                    {{ trans('cruds.report.fields.date') }}
+                </div>
+                <div class="col-3 d-flex mx-auto pt-2 pr-0 pl-4 content-align-center align-items-center reead-icon ">
+                    <img src="/images/docic.png" alt="" class="imaa">
+                </div>
+                <div class="col-9 justify-content-center d-flex flex-column p-0 test1">
+                    <p class="proba">
+                        {{ trans('cruds.report.fields.title') }}
+                    </p>
+                    <span class="reead">
+                        {{ trans('cruds.report.fields.doctor') }}
+                    </span>
+
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
 @endsection
 @section('scripts')
 @parent
-<script>
-    $(function () {
-  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('report_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-  let deleteButton = {
-    text: deleteButtonTrans,
-    url: "{{ route('frontend.reports.massDestroy') }}",
-    className: 'btn-danger',
-    action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
-      });
 
-      if (ids.length === 0) {
-        alert('{{ trans('global.datatables.zero_selected') }}')
-
-        return
-      }
-
-      if (confirm('{{ trans('global.areYouSure') }}')) {
-        $.ajax({
-          headers: {'x-csrf-token': _token},
-          method: 'POST',
-          url: config.url,
-          data: { ids: ids, _method: 'DELETE' }})
-          .done(function () { location.reload() })
-      }
-    }
-  }
-  dtButtons.push(deleteButton)
-@endcan
-
-  $.extend(true, $.fn.dataTable.defaults, {
-    orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
-    pageLength: 100,
-  });
-  let table = $('.datatable-Report:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-  $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
-      $($.fn.dataTable.tables(true)).DataTable()
-          .columns.adjust();
-  });
-  
-})
-
-</script>
 @endsection
