@@ -44,7 +44,6 @@ class MedicationsController extends Controller
     public function store(StoreMedicationRequest $request)
     {
         $medication = Medication::create($request->all());
-        $medication->drugs()->sync($request->input('drugs', []));
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $medication->id]);
         }
