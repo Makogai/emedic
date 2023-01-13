@@ -74,6 +74,18 @@
                                         {{ App\Models\Medication::ISREAD_RADIO[$medication->isread] ?? '' }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.medication.fields.image') }}
+                                    </th>
+                                    <td>
+                                        @if($medication->image)
+                                            <a href="{{ $medication->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                                <img src="{{ $medication->image->getUrl('thumb') }}">
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">
