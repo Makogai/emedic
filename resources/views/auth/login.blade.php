@@ -21,7 +21,7 @@
     </style>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card ">
+            <div class=" ">
                 <div class="card-body p-4">
                     <img src="/images/logo.png" alt="" class="mx-auto d-block w-50">
                     <h1 class="font-bold text-center text-3xl">PRIJAVA</h1>
