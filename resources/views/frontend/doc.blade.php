@@ -117,6 +117,9 @@
             <div class="col-12 text-center">
                 <p>Email: {{ $user->email }} Kontakt: {{ $user->phone_number }}</p>
             </div>
+            <div class="col-12 d-flex justify-content-center align-items-center">
+                <a href="/appoint/{{$user->id}}" class="btn btn-success text-center mx-auto">Zakazi razgovor</a>
+            </div>
             <div class="col-12 text-center">
                 {!! $user->bio !!}
             </div>

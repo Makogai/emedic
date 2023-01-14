@@ -22,9 +22,22 @@ class TestController extends Controller
     {
         abort_if(Gate::denies('test_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tests = Test::with(['doctor', 'patient', 'media'])->get();
+        // tests for auth user where date is earlier than today
 
-        return view('frontend.tests.index', compact('tests'));
+        $tests = auth()->user()->patientTests()->with(['doctor', 'patient', 'media'])->where('date', '<', now())->get();
+
+        $nextTest = auth()->user()->patientTests()->with(['doctor', 'patient', 'media'])->where('date', '>', now())->first();
+
+        // Latest test
+        $latestTest = auth()->user()->patientTests()->latest()->first();
+
+        $health = [
+            'blood_pressure' => $latestTest->blood_preasure,
+            'heart_rate' => $latestTest->heart_rate,
+            'oxygen' => $latestTest->oxygen,
+        ];
+
+        return view('frontend.tests.index', compact('tests', 'health', 'nextTest'));
     }
 
     public function create()

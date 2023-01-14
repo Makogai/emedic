@@ -25,10 +25,6 @@ class StoreAppointmentRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'patient_id' => [
-                'required',
-                'integer',
-            ],
             'purpose' => [
                 'string',
                 'min:5',
