@@ -91,6 +91,10 @@ class TestController extends Controller
     {
         abort_if(Gate::denies('test_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        // update isread to true
+        $test->isread = true;
+        $test->save();
+
         $test->load('doctor', 'patient');
 
         return view('frontend.tests.show', compact('test'));

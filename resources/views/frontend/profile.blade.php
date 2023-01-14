@@ -9,7 +9,7 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridFourDay',
                 events: '/calendar',
-                height: 180,
+                height: 150,
                 views: {
                     dayGridFourDay: {
                         type: 'dayGrid',
@@ -103,6 +103,14 @@
             font-size: 12px;
 
         }
+        .fc .fc-toolbar-title{
+            font-size: 20px;
+        }
+        .fc .fc-button {
+            line-height: 1!important;
+            /*height: 30px!important;*/
+            padding: 4px 10px;
+        }
     </style>
     <div class="container">
         <div class="row">
@@ -110,7 +118,11 @@
                 <div class="card">
                     <div class="row">
                         <div class="col-4 pl-4 pr-0">
-                            <img src="/images/profile.png" alt="" class="">
+                            @if(auth()->user()->image)
+                                <img src="{{ auth()->user()->image->getUrl('preview') }}" class="w-100 rounded-circle">
+                            @else
+                                <img src="{{asset('images/user.png')}}" class="w-100">
+                            @endif
                         </div>
                         <div class="col-8 pl-4 align-items-center d-flex p-0 ">
                             <p class="siz">{{auth()->user()->name}}</p>
@@ -134,7 +146,7 @@
                     <div class="row mb-4 gap-4">
 
                         <div class="col-6 d-flex mx-auto content-align-center p-0">
-                            <a href="" class="butn d-block mx-auto">
+                            <a href="/reports" class="butn d-block mx-auto">
                                 <img src="/images/icon1.png" alt=""><br>
                                 Izvestaj i misljenje ljekara
 

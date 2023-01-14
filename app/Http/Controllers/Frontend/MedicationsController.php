@@ -88,6 +88,10 @@ class MedicationsController extends Controller
     {
         abort_if(Gate::denies('medication_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        // update isread to true
+        $medication->isread = true;
+        $medication->save();
+
         $medication->load('doctor', 'patient');
 
         return view('frontend.medications.show', compact('medication'));

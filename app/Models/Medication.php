@@ -21,6 +21,8 @@ class Medication extends Model implements HasMedia
 
     protected $appends = [
         'date',
+        'icon'.
+        'url'
     ];
 
     public $table = 'medications';
@@ -73,5 +75,15 @@ class Medication extends Model implements HasMedia
     public function getDateAttribute()
     {
         return $this->created_at->diffForHumans();
+    }
+
+    public function getIconAttribute()
+    {
+        return asset('images/meds.png');
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('frontend.medications.show', $this);
     }
 }

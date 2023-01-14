@@ -91,6 +91,10 @@ class ReportController extends Controller
     {
         abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        // update isread to true
+        $report->isread = true;
+        $report->save();
+
         $report->load('doctor', 'patient');
 
         return view('frontend.reports.show', compact('report'));
