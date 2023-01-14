@@ -30,6 +30,8 @@ class Test extends Model implements HasMedia
 
     protected $appends = [
         'file',
+        'icon',
+        'url'
     ];
 
     protected $dates = [
@@ -89,5 +91,16 @@ class Test extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function getIconAttribute()
+    {
+        return asset('images/docic.png');
+    }
+
+
+    public function getUrlAttribute()
+    {
+        return route('frontend.tests.show', $this);
     }
 }

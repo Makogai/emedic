@@ -140,6 +140,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
 
     Route::get('docs', 'ProfileController@docs')->name('docs');
     Route::get('doc/{user}', 'ProfileController@doc')->name('doc');
+    Route::get('appoint/{user}', 'ProfileController@appoint')->name('appoint');
 
     Route::get('calendar', function () {
         $events = [];
@@ -154,7 +155,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
                 ];
             }
         }
-        return json_encode($events);
+        //retrn json response
+        return response()->json($events);
     });
 
     Route::get('notifications', function(){

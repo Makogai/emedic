@@ -1,153 +1,72 @@
 @extends('layouts.frontend')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            @can('appointment_create')
-                <div style="margin-bottom: 10px;" class="row">
-                    <div class="col-lg-12">
-                        <a class="btn btn-success" href="{{ route('frontend.appointments.create') }}">
-                            {{ trans('global.add') }} {{ trans('cruds.appointment.title_singular') }}
-                        </a>
-                    </div>
-                </div>
-            @endcan
-            <div class="card">
-                <div class="card-header">
-                    {{ trans('cruds.appointment.title_singular') }} {{ trans('global.list') }}
-                </div>
+    @section('styles')
+        <script src="{{asset('fc/dist/index.global.js')}}"></script>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Appointment">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.appointment.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.appointment.fields.date') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.appointment.fields.doctor') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.appointment.fields.patient') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.appointment.fields.purpose') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.appointment.fields.status') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($appointments as $key => $appointment)
-                                    <tr data-entry-id="{{ $appointment->id }}">
-                                        <td>
-                                            {{ $appointment->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $appointment->date ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $appointment->doctor->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $appointment->patient->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $appointment->purpose ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ App\Models\Appointment::STATUS_RADIO[$appointment->status] ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('appointment_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('frontend.appointments.show', $appointment->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+        <script>
 
-                                            @can('appointment_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.appointments.edit', $appointment->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    height: 500,
+                    events: '/calendar',
+                    views: {
+                        dayGridFourDay: {
+                            type: 'dayGrid',
+                            duration: { days: 4 },
+                            buttonText: '4 day'
+                        }
+                    }
+                });
+                calendar.render();
 
-                                            @can('appointment_delete')
-                                                <form action="{{ route('frontend.appointments.destroy', $appointment->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
 
-                                        </td>
+            });
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+            //wait 100 ms
+            setTimeout(function() {
+                //then scroll to the element with the id of 'calendar'
+                document.querySelector('.fc-next-button').addEventListener('click', function() {
+                    ah();
+                });
+            }, 1000);
+
+
+            function ah(){
+                let a = document.querySelector('.fc-event-title');
+                a.insertBefore(document.createElement('br'), null);
+            }
+
+
+        </script>
+    @endsection
+    <style>
+        .heding {
+            font-size: 25px;
+
+        }
+        .fc .fc-toolbar-title{
+            font-size: 20px;
+        }
+        .fc .fc-button {
+            line-height: 1!important;
+            /*height: 30px!important;*/
+            padding: 4px 10px;
+        }
+    </style>
+<div class="container-fluid">
+    <div class="row justify-content-center ">
+        <div class="row justify-content-center mb-5">
+            <div class="col-12">
+                <div class="row justify-content-center heding ">
+                    <p class="">
+                        Zakazani pregledi
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
+    <div id='calendar'></div>
 </div>
-@endsection
-@section('scripts')
-@parent
-<script>
-    $(function () {
-  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('appointment_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-  let deleteButton = {
-    text: deleteButtonTrans,
-    url: "{{ route('frontend.appointments.massDestroy') }}",
-    className: 'btn-danger',
-    action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
-      });
 
-      if (ids.length === 0) {
-        alert('{{ trans('global.datatables.zero_selected') }}')
-
-        return
-      }
-
-      if (confirm('{{ trans('global.areYouSure') }}')) {
-        $.ajax({
-          headers: {'x-csrf-token': _token},
-          method: 'POST',
-          url: config.url,
-          data: { ids: ids, _method: 'DELETE' }})
-          .done(function () { location.reload() })
-      }
-    }
-  }
-  dtButtons.push(deleteButton)
-@endcan
-
-  $.extend(true, $.fn.dataTable.defaults, {
-    orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
-    pageLength: 100,
-  });
-  let table = $('.datatable-Appointment:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-  $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
-      $($.fn.dataTable.tables(true)).DataTable()
-          .columns.adjust();
-  });
-  
-})
-
-</script>
-@endsection

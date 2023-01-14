@@ -28,6 +28,8 @@ class User extends Authenticatable implements HasMedia
 
     protected $appends = [
         'image',
+        'unread_notifications',
+        'read_notifications',
     ];
 
     protected $hidden = [
@@ -250,6 +252,32 @@ class User extends Authenticatable implements HasMedia
     public function doctorField()
     {
         return $this->belongsTo(DoctorField::class, 'sector_id');
+    }
+
+    // unreadNotifications
+    public function getUnreadNotificationsAttribute()
+    {
+        $reports = $this->patientReports()->whereNull('isread')->get();
+        $medications = $this->patientMedications()->whereNull('isread')->get();
+        $tests = $this->patientTests()->whereNull('isread')->get();
+
+        return  [
+            'notifications' => $reports->concat($medications)->concat($tests),
+            'count' => $reports->count() + $medications->count() + $tests->count(),
+        ];
+
+    }
+
+    public function getReadNotificationsAttribute()
+    {
+        $reports = $this->patientReports()->whereNotNull('isread')->get();
+        $medications = $this->patientMedications()->whereNotNull('isread')->get();
+        $tests = $this->patientTests()->whereNotNull('isread')->get();
+
+        return [
+            'notifications' => $reports->concat($medications)->concat($tests),
+            'count' => $reports->count() + $medications->count() + $tests->count(),
+        ];
     }
 
     protected function serializeDate(DateTimeInterface $date)

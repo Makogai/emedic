@@ -58,4 +58,10 @@ class ProfileController extends Controller
         $user->load('doctorField');
         return view('frontend.doc', compact('user'));
     }
+
+    public function appoint(User $user)
+    {
+        $user->load('doctorField');
+        return view('frontend.appoint', compact('user'));
+    }
 }

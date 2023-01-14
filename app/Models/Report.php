@@ -26,6 +26,8 @@ class Report extends Model implements HasMedia
 
     protected $appends = [
         'file',
+        'icon',
+        'url'
     ];
 
     protected $dates = [
@@ -81,5 +83,15 @@ class Report extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+
+    public function getIconAttribute()
+    {
+        return asset('images/icon1.png');
+    }
+    public function getUrlAttribute()
+    {
+        return route('frontend.reports.show', $this);
     }
 }

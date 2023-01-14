@@ -36,6 +36,8 @@ class AppointmentController extends Controller
 
     public function store(StoreAppointmentRequest $request)
     {
+        $request['patient_id'] = auth()->user()->id;
+
         $appointment = Appointment::create($request->all());
 
         return redirect()->route('frontend.appointments.index');

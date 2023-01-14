@@ -1,187 +1,201 @@
 @extends('layouts.frontend')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            @can('test_create')
-                <div style="margin-bottom: 10px;" class="row">
-                    <div class="col-lg-12">
-                        <a class="btn btn-success" href="{{ route('frontend.tests.create') }}">
-                            {{ trans('global.add') }} {{ trans('cruds.test.title_singular') }}
-                        </a>
-                    </div>
+    <style>
+        .siz {
+            font-size: 26px;
+        }
+
+        .imaa {
+            height: 58px;
+            width: 58px;
+        }
+
+        .hed {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .butn {
+            width: 150px;
+            height: 120px;
+            background: rgb(34, 132, 117);
+            background: linear-gradient(0deg, rgba(34, 132, 117, 0.13489145658263302) 0%, rgba(255, 255, 255, 1) 100%);
+            padding-bottom: 25px;
+            text-align: center;
+            border: 0;
+            border-radius: 10px;
+            font-size: 16px;
+
+        }
+
+        .card {
+            border: 0;
+        }
+
+        .test1 {
+            width: 100%;
+        }
+
+        .notif {
+
+            height: 130px;
+            background: rgb(255, 255, 255);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.13489145658263302) 0%, rgba(255, 255, 255, 0.23573179271708689) 55%, rgba(143, 205, 196, 0.4066001400560224) 100%);
+            position: relative;
+        }
+
+        .read {
+            height: 130px;
+            position: relative;
+            background: #F2F5F5;
+        }
+
+        .proba {
+            font-weight: bold;
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .reead {
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .reead-icon {
+            opacity: 0.7;
+        }
+
+        .blabla {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 12px;
+
+        }
+
+        .heding {
+            font-size: 25px;
+
+        }
+
+        .bland {
+            color: black;
+        }
+
+        .bg-gray {
+            background: #F2F5F5;
+        }
+
+        .bg-gray p {
+            padding: 0 !important;
+            margin: 0;
+        }
+
+        .font-light {
+            color: #515151;
+        }
+
+        .brg {
+            border-right: 12px solid white;
+        }
+
+        .boticon {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(-50%, -50%);
+            display: grid;
+            place-items: center;
+        }
+
+        .relative {
+            position: relative;
+        }
+    </style>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="row justify-content-center heding mb-2">
+                    <p class="">
+                        Nalazi i odrađeni testovi
+                    </p>
                 </div>
-            @endcan
-            <div class="card">
-                <div class="card-header">
-                    {{ trans('cruds.test.title_singular') }} {{ trans('global.list') }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h5>
+                    Zdravstveno stanje
+                </h5>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row gap-1">
+                <div class="col-6 brg p-2 py-3 bg-gray">
+                    <p class="text-center p-0 mb-1"> Krvni pritisak</p>
+                    <p class="text-center font-light p-0 mt-1">{{ $health['blood_pressure'] }}</p>
                 </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Test">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.test.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.title') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.file') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.date') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.doctor') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.patient') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.isread') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.tip') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.blood_preasure') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.heart_rate') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.test.fields.oxygen') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($tests as $key => $test)
-                                    <tr data-entry-id="{{ $test->id }}">
-                                        <td>
-                                            {{ $test->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->title ?? '' }}
-                                        </td>
-                                        <td>
-                                            @foreach($test->file as $key => $media)
-                                                <a href="{{ $media->getUrl() }}" target="_blank">
-                                                    {{ trans('global.view_file') }}
-                                                </a>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            {{ $test->date ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->doctor->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->patient->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ App\Models\Test::ISREAD_RADIO[$test->isread] ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->tip ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->blood_preasure ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->heart_rate ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $test->oxygen ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('test_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('frontend.tests.show', $test->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('test_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.tests.edit', $test->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('test_delete')
-                                                <form action="{{ route('frontend.tests.destroy', $test->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="col-6 p-2 py-3 bg-gray">
+                    <p class="text-center p-0 mb-1"> Otkucaji srca</p>
+                    <p class="text-center font-light p-0 mt-1">{{ $health['heart_rate'] }}</p>
+                </div>
+                <div class="col-6 p-2 py-3 brg bg-gray mt-2">
+                    <p class="text-center p-0 mb-1"> Nivo kiseonika</p>
+                    <p class="text-center font-light p-0 mt-1">{{ $health['oxygen'] }}</p>
                 </div>
             </div>
 
         </div>
+
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5>
+                    Naredni pregled
+                </h5>
+            </div>
+        </div>
+
+        @if($nextTest)
+        <div class="container">
+            <div class="row">
+                <div class="col-12 px-4 py-3 brg bg-gray mt-2">
+                    <p><i class="far fa-clock"></i> {{ \Carbon\Carbon::parse($nextTest->date)->format('M d, H:i') }}</p>
+                    <p class=" p-0 mb-1 mt-1">{{ $nextTest->doctor->name }}</p>
+                    <p class=" font-light p-0 mt-1">{{ $nextTest->doctor->sector->title }}</p>
+                </div>
+            </div>
+        </div>
+@endif
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5>
+                    Odradjeni testovi
+                </h5>
+            </div>
+        </div>
+
+        <div class="container">
+
+
+            <div class="row">
+
+                @foreach($tests as $test)
+                <a href="{{ $test->url }}" style="display: block; width: 100%; color: black">
+                    <div class="col-12 px-4 py-3 brg bg-gray mt-2 border-info">
+                        <div class="boticon d-grid place-items-center">
+                            <img src="/images/boticon.png" alt="">
+                        </div>
+                        <p><i class="far fa-clock"></i> {{ \Carbon\Carbon::parse($test->date)->format('M d, H:i') }}</p>
+                        <p class=" p-0 mb-1 mt-1">{{ $test->title }}</p>
+                        <p class=" font-light p-0 mt-1">{{ $test->doctor->name }}</p>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
     </div>
-</div>
-@endsection
-@section('scripts')
-@parent
-<script>
-    $(function () {
-  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('test_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-  let deleteButton = {
-    text: deleteButtonTrans,
-    url: "{{ route('frontend.tests.massDestroy') }}",
-    className: 'btn-danger',
-    action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
-      });
-
-      if (ids.length === 0) {
-        alert('{{ trans('global.datatables.zero_selected') }}')
-
-        return
-      }
-
-      if (confirm('{{ trans('global.areYouSure') }}')) {
-        $.ajax({
-          headers: {'x-csrf-token': _token},
-          method: 'POST',
-          url: config.url,
-          data: { ids: ids, _method: 'DELETE' }})
-          .done(function () { location.reload() })
-      }
-    }
-  }
-  dtButtons.push(deleteButton)
-@endcan
-
-  $.extend(true, $.fn.dataTable.defaults, {
-    orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
-    pageLength: 100,
-  });
-  let table = $('.datatable-Test:not(.ajaxTable)').DataTable({ buttons: dtButtons })
-  $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
-      $($.fn.dataTable.tables(true)).DataTable()
-          .columns.adjust();
-  });
-  
-})
-
-</script>
 @endsection

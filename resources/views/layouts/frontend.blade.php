@@ -15,19 +15,23 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-    <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet"/>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+        rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css"
+          rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
     <style>
         #loading {
             position: absolute;
@@ -40,10 +44,17 @@
             display: grid;
             place-items: center;
         }
+
         @media screen and (orientation: landscape) {
-            #app { display: none; }
-            .use-portrait { display: block; }
+            #app {
+                display: none;
+            }
+
+            .use-portrait {
+                display: block;
+            }
         }
+
         .use-portrait {
             -webkit-transform: rotate(90deg);
             transform: rotate(90deg);
@@ -52,26 +63,26 @@
 
     <script>
         function onReady(callback) {
-            var intervalId = window.setInterval(function() {
+            var intervalId = window.setInterval(function () {
                 if (document.getElementsByTagName('body')[0] !== undefined) {
                     window.clearInterval(intervalId);
                     callback.call(this);
                 }
-            }, 250);
+            }, 2500);
         }
 
         function setVisible(selector, visible) {
             document.querySelector(selector).style.display = visible ? 'block' : 'none';
         }
 
-        onReady(function() {
+        onReady(function () {
             setVisible('#app', true);
             setVisible('#loading', false);
         });
     </script>
     @yield('styles')
     <style>
-        .butt{
+        .butt {
             border: 0 !important;
             padding: 0 !important;
         }
@@ -80,6 +91,7 @@
 </head>
 
 <body>
+
 <div id="loading">
     <div class="d-flex flex-column">
         <img class="w-25 mx-auto mb-5" src="{{asset('images/logo.png')}}" alt="">
@@ -88,7 +100,7 @@
 
 </div>
 <div class="d-none d-md-flex flex-column align-items-center mt-5">
-{{--    <img src="{{asset('images/warning.png')}}" class="" alt="">--}}
+    {{--    <img src="{{asset('images/warning.png')}}" class="" alt="">--}}
     <img src="{{asset('images/rotate.png')}}" class="" alt="">
     <h1>Aplikacija nije dostupna u landscape modu</h1>
     <h3>Molimo vas koristite mobilni telefon uspravno</h3>
@@ -198,13 +210,19 @@
             justify-content: space-around;
             z-index: 10000;
         }
+
         .bloc-icon {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .bloc-icon img {
             width: 30px;
+        }
+        .badge-primaryy{
+            color: #fff;
+            background-color: #a7bc14;
         }
     </style>
 
@@ -212,7 +230,7 @@
         <a href="{{ route('frontend.profile.index') }}" class="bloc-icon">
             <img src="{{asset('images/user.png')}}" alt="">
         </a>
-        <a href="{{ route('frontend.reports.index') }}" class="bloc-icon">
+        <a href="{{ route('frontend.docs') }}" class="bloc-icon">
             <img src="{{asset('images/docs.png')}}" alt="">
         </a>
         <a href="{{ route('frontend.medications.index') }}" class="bloc-icon">
@@ -224,11 +242,64 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
             @csrf
         </form>
-        <a href="" onclick="event.preventDefault();document.getElementById('logout-form').submit(); "class="bloc-icon">
+        <a href="" type="button" data-toggle="modal" data-target="#exampleModal" class="bloc-icon">
             <img src="{{asset('images/hamb.png')}}" alt="">
         </a>
     </nav>
 
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="bottom: 70px; align-items: end" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+{{--                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <!-- Separator with title -->
+                        <a href="/notifications" class="bg-light list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-bullhorn fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Obavestenja
+                                    @if(auth()->user()->unreadNotifications['count'] > 0)
+                                <span class="badge badge-pill badge-primaryy ml-2">
+                                        {{auth()->user()->unreadNotifications['count']}}
+                                    </span>
+                                        @endif
+                                </span>
+
+                            </div>
+                        </a>
+                        <a href="/settings" class="bg-light list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-cog fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Podesavanja </span>
+
+                            </div>
+                        </a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="bg-light list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-sign-out fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Izloguj se </span>
+
+                            </div>
+                        </a>
+                        <!-- Submenu content -->
+
+                        <!-- Logo -->
+                    </ul><!-- List Group END-->
+                </div>
+                {{--                <div class="modal-footer">--}}
+                {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                {{--                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                {{--                </div>--}}
+            </div>
+        </div>
+    </div>
     <main class="py-4">
         @if(session('message'))
             <div class="container">
@@ -275,9 +346,12 @@
 <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 <script src="{{ asset('js/main.js') }}"></script>
 @yield('scripts')
 
